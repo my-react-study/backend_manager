@@ -24,7 +24,7 @@ function Login(props) {
             }, 500)
             return false
         }
-        props.history.push('/index')
+        props.history.push('/home')
     }
 
     return (
