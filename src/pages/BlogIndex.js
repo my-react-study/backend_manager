@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Divider } from 'antd';
+import React from 'react';
 
 const BlogIndex = () => {
     return (
         <div>
-            <h2>我是博客首页</h2>
+            <h2>博客首页</h2>
         </div>
     )
 }

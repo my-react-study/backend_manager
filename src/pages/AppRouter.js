@@ -4,7 +4,7 @@ import Login from './Login'
 import Home from './Home';
 
 
-function Main() {
+function AppRouter() {
     return (
         <Router>
             <Route path="/" exact component={Login}></Route>
@@ -13,4 +13,4 @@ function Main() {
     )
 }
 
-export default Main
+export default AppRouter
