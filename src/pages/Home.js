@@ -4,16 +4,22 @@ import Video from "./Video"
 import Workplace from "./Workplace"
 import BlogIndex from "./BlogIndex"
 import "./Home.css"
+import ArticleList from "./article/ArticleList"
+
 
 function Home() {
     return (
         <div className="mainDiv">
             <div className="leftNav">
-                <h3>一级导航</h3>
+                <h3>视频</h3>
                 <ul>
                     <li><Link to="/home/index">博客首页</Link> </li>
                     <li><Link to="/home/video">视频教程</Link> </li>
                     <li><Link to="/home/workplace">职场空间</Link> </li>
+                </ul>
+                <h3>文章</h3>
+                <ul>
+                    <li><Link to="/home/articleList">文章列表</Link> </li>
                 </ul>
             </div>
 
@@ -21,6 +27,7 @@ function Home() {
                 <Route path="/home/index" exact component={BlogIndex} />
                 <Route path="/home/video" component={Video} />
                 <Route path="/home/workplace" component={Workplace} />
+                <Route path="/home/articleList" component={ArticleList} />
             </div>
         </div>
     )
