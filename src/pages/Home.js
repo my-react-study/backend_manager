@@ -5,6 +5,7 @@ import Workplace from "./Workplace"
 import BlogIndex from "./BlogIndex"
 import "./Home.css"
 import ArticleList from "./article/ArticleList"
+import ArticleAdded from "./article/ArticleAdded"
 
 
 function Home() {
@@ -20,6 +21,7 @@ function Home() {
                 <h3>文章</h3>
                 <ul>
                     <li><Link to="/home/articleList">文章列表</Link> </li>
+                    <li><Link to="/home/addArticle">添加文章</Link> </li>
                 </ul>
             </div>
 
@@ -28,6 +30,7 @@ function Home() {
                 <Route path="/home/video" component={Video} />
                 <Route path="/home/workplace" component={Workplace} />
                 <Route path="/home/articleList" component={ArticleList} />
+                <Route path="/home/addArticle" component={ArticleAdded} />
             </div>
         </div>
     )

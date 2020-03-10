@@ -68,10 +68,10 @@ const ArticleList = () => {
                                 {item.addTime}
                             </Col>
                             <Col span={3}>
-                                共<span>{item.part_count}</span>集
+                                共<span>{item.partCount}</span>集
                             </Col>
                             <Col span={3}>
-                                {item.view_count}
+                                {item.viewCount}
                             </Col>
 
                             <Col span={4}>
