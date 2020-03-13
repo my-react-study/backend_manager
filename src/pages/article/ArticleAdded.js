@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Input, Select, Button, DatePicker, message } from 'antd'
 import '../../static/css/ArticleAdded.css'
 import axios from 'axios'
@@ -7,12 +7,36 @@ import servicePath from '../../config/ApiUrl'
 const { Option } = Select;
 const { TextArea } = Input
 
-const ArticleAdded = () => {
+const ArticleAdded = (props) => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [introduction, setIntroduction] = useState('')
     const [publishDate, setPublishDate] = useState('')
-    const [articleType, setArticleType] = useState('1')
+    const [articleType, setArticleType] = useState(1)
+    const [articleTypeList, setArticleTypeList] = useState([])
+
+    //页面初始化时获取文章类型数据
+    useEffect(() => {
+        getArticleTypeList()
+    }, [])
+
+    const getArticleTypeList = () => {
+        axios({
+            method: 'get',
+            url: servicePath.getTypeInfo,
+            header: { 'Access-Control-Allow-Origin': '*' },
+            withCredentials: true
+        }).then(
+            res => {
+                if (res.data.data === "没有登录") {
+                    localStorage.removeItem('openId')
+                    props.history.push('/')
+                } else {
+                    setArticleTypeList(res.data.data)
+                }
+            }
+        )
+    }
 
     const changeContent = (e) => {
         setContent(e.target.value)
@@ -85,8 +109,11 @@ const ArticleAdded = () => {
                         <Col span={4}>
                             &nbsp;
                             <Select size="large" defaultValue={articleType} onChange={changeArticleType}>
-                                <Option key='1' value='1'>视频教程</Option>
-                                <Option key='2' value='2'>生活分享</Option>
+                                {
+                                    articleTypeList.map((item, index) => {
+                                        return (<Option key={index} value={item.Id}>{item.typeName}</Option>)
+                                    })
+                                }
                             </Select>
                         </Col>
                     </Row>
