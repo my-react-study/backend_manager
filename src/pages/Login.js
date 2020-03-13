@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import 'antd/dist/antd.css';
 import { Card, Input, Icon, Button, Spin, message } from 'antd';
 import '../static/css/Login.css';
+import axios from 'axios'
+import servicePath from '../config/ApiUrl'
 
 function Login(props) {
     const [userName, setUserName] = useState('')
@@ -24,7 +26,25 @@ function Login(props) {
             }, 500)
             return false
         }
-        props.history.push('/home')
+        axios({
+            method: 'post',
+            url: servicePath.checkLogin,
+            data: {
+                'userName': userName,
+                'password': password
+            },
+            withCredentials: true
+        }).then(
+            res => {
+                setIsLoading(false)
+                if (res.data.data === '登录成功') {
+                    localStorage.setItem('openId', res.data.openId)
+                    props.history.push('/home')
+                } else {
+                    message.error('用户名密码错误')
+                }
+            }
+        )
     }
 
     return (
