@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Row, Col, Input, Select, Button, DatePicker } from 'antd'
+import { Row, Col, Input, Select, Button, DatePicker, message } from 'antd'
 import '../../static/css/ArticleAdded.css'
+import axios from 'axios'
+import servicePath from '../../config/ApiUrl'
 
 const { Option } = Select;
 const { TextArea } = Input
@@ -10,19 +12,62 @@ const ArticleAdded = () => {
     const [content, setContent] = useState('')
     const [introduction, setIntroduction] = useState('')
     const [publishDate, setPublishDate] = useState('')
-    const [acticleType, setActicleType] = useState('1')
+    const [articleType, setArticleType] = useState('1')
 
     const changeContent = (e) => {
         setContent(e.target.value)
     }
 
     const changeArticleType = (value) => {
-        setActicleType(value)
+        setArticleType(value)
         console.log(value)
     }
 
     const changeIntroduction = (e) => {
         setIntroduction(e.target.value)
+    }
+
+    const publishArticle = () => {
+        if (!title) {
+            message.error("文章标题不能为空")
+            return false
+        }
+        if (!content) {
+            message.error("文章内容不能为空")
+            return false
+        }
+        if (!introduction) {
+            message.error("文章简介不能为空")
+            return false
+        }
+        if (!publishDate) {
+            message.error("发布时间不能为空")
+            return false
+        }
+        var dataProps = {
+            'type_id': articleType,
+            'title': title,
+            'article_content': content,
+            'introduce': introduction,
+            'addTime': (new Date(publishDate.replace('-', '/')).getTime()) / 1000, //把字符串转换成时间戳
+            'view_count': Math.ceil(Math.random() * 100) + 1000,
+            'part_count': Math.ceil(Math.random() * 100) + 20
+        }
+        axios({
+            method: 'post',
+            url: servicePath.addArticle,
+            data: dataProps,
+            withCredentials: true
+        }).then(
+            res => {
+                if (res.data.isSuccess) {
+                    message.success('文章保存成功')
+                } else {
+                    message.error('文章保存失败');
+                }
+            }
+        )
+
     }
 
     return (
@@ -39,7 +84,7 @@ const ArticleAdded = () => {
                         </Col>
                         <Col span={4}>
                             &nbsp;
-                            <Select size="large" defaultValue={acticleType} onChange={changeArticleType}>
+                            <Select size="large" defaultValue={articleType} onChange={changeArticleType}>
                                 <Option key='1' value='1'>视频教程</Option>
                                 <Option key='2' value='2'>生活分享</Option>
                             </Select>
@@ -70,7 +115,7 @@ const ArticleAdded = () => {
                 <Col span={6}>
                     <Row>
                         <Col span={24}>
-                            <Button type="primary" size="large"  >发布文章</Button>
+                            <Button type="primary" size="large" onClick={publishArticle}  >发布文章</Button>
                             <br />
                         </Col>
                         <Col span={24}>
