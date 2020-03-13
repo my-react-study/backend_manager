@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { List, Row, Col, Button } from 'antd'
+import { List, Row, Col, Button, message, Modal } from 'antd'
 import '../../static/css/ArticleList.css'
 import axios from 'axios'
 import servicePath from '../../config/ApiUrl'
+const { confirm } = Modal;
 
 const ArticleList = () => {
     const [list, setList] = useState([])
@@ -24,6 +25,24 @@ const ArticleList = () => {
                 setList(res.data.list)
             }
         )
+    }
+
+    const deleteItem = (id) => {
+        confirm({
+            title: '确定要删除这篇博客文章吗?',
+            content: '如果你点击OK按钮，文章将会永远被删除，无法恢复。',
+            onOk() {
+                axios(servicePath.deleteArticle + id, { withCredentials: true }).then(
+                    res => {
+                        message.success('文章删除成功')
+                        getArticleList()
+                    }
+                )
+            },
+            onCancel() {
+                message.success('没有任何改变')
+            },
+        });
     }
 
     return (
@@ -76,7 +95,7 @@ const ArticleList = () => {
 
                             <Col span={4}>
                                 <Button type="primary" >修改</Button>&nbsp;
-                                <Button >删除 </Button>
+                                <Button onClick={() => deleteItem(item.id)}>删除 </Button>
                             </Col>
                         </Row>
                     </List.Item>
