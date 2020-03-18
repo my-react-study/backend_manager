@@ -31,6 +31,7 @@ function Home() {
                 <Route path="/home/workplace" component={Workplace} />
                 <Route path="/home/articleList" component={ArticleList} />
                 <Route path="/home/addArticle" component={ArticleAdded} />
+                <Route path="/home/editArticle/:id" component={ArticleAdded} />
             </div>
         </div>
     )

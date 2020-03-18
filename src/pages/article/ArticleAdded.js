@@ -14,11 +14,33 @@ const ArticleAdded = (props) => {
     const [publishDate, setPublishDate] = useState('')
     const [articleType, setArticleType] = useState(1)
     const [articleTypeList, setArticleTypeList] = useState([])
+    const [articleId, setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
 
     //页面初始化时获取文章类型数据
     useEffect(() => {
         getArticleTypeList()
+        let articleIdFromEdit = props.match.params.id
+        if (articleIdFromEdit) {
+            setArticleId(articleIdFromEdit)
+            getArticleById(articleIdFromEdit)
+        }
     }, [])
+
+    const getArticleById = (articleId) => {
+        axios(servicePath.getArticleById + articleId, {
+            withCredentials: true,
+            header: { 'Access-Control-Allow-Origin': '*' }
+        }).then(
+            res => {
+                let article = res.data.data[0]
+                setTitle(article.title)
+                setContent(article.article_content)
+                setPublishDate(article.addTime)
+                setArticleType(article.typeId)
+                setIntroduction(article.introduce)
+            }
+        )
+    }
 
     const getArticleTypeList = () => {
         axios({
@@ -77,20 +99,40 @@ const ArticleAdded = (props) => {
             'view_count': Math.ceil(Math.random() * 100) + 1000,
             'part_count': Math.ceil(Math.random() * 100) + 20
         }
-        axios({
-            method: 'post',
-            url: servicePath.addArticle,
-            data: dataProps,
-            withCredentials: true
-        }).then(
-            res => {
-                if (res.data.isSuccess) {
-                    message.success('文章保存成功')
-                } else {
-                    message.error('文章保存失败');
+        if (articleId === 0) {//发布文章
+            axios({
+                method: 'post',
+                url: servicePath.addArticle,
+                data: dataProps,
+                withCredentials: true
+            }).then(
+                res => {
+                    if (res.data.isSuccess) {
+                        message.success('文章保存成功')
+                    } else {
+                        message.error('文章保存失败');
+                    }
                 }
-            }
-        )
+            )
+        }
+        else {//修改文章
+            dataProps.id = articleId
+            axios({
+                method: 'post',
+                url: servicePath.updateArticle,
+                header: { 'Access-Control-Allow-Origin': '*' },
+                data: dataProps,
+                withCredentials: true
+            }).then(
+                res => {
+                    if (res.data.isScuccess) {
+                        message.success('文章修改成功')
+                    } else {
+                        message.error('修改失败');
+                    }
+                }
+            )
+        }
 
     }
 

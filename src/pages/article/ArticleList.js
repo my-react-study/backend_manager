@@ -5,7 +5,7 @@ import axios from 'axios'
 import servicePath from '../../config/ApiUrl'
 const { confirm } = Modal;
 
-const ArticleList = () => {
+const ArticleList = (props) => {
     const [list, setList] = useState([])
 
     //进入页面时，获得博客文章的列表
@@ -43,6 +43,10 @@ const ArticleList = () => {
                 message.success('没有任何改变')
             },
         });
+    }
+
+    const editItem = (id) => {
+        props.history.push('/home/editArticle/' + id)
     }
 
     return (
@@ -94,7 +98,7 @@ const ArticleList = () => {
                             </Col>
 
                             <Col span={4}>
-                                <Button type="primary" >修改</Button>&nbsp;
+                                <Button type="primary" onClick={() => editItem(item.id)}>修改</Button>&nbsp;
                                 <Button onClick={() => deleteItem(item.id)}>删除 </Button>
                             </Col>
                         </Row>
