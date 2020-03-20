@@ -1,4 +1,4 @@
-import { GET_USER_LIST, GET_ALL_USER } from './actionType'
+import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME } from './actionType'
 
 const defaultState = {
     userList: [
@@ -8,19 +8,19 @@ const defaultState = {
             address: "上海",
         },
         {
-            username: "刘三",
+            username: "李四",
             age: "20",
             address: "上海",
         },
         {
-            username: "刘三",
+            username: "王五",
             age: "20",
             address: "上海",
         },
         {
-            username: "刘三",
+            username: "刘三san",
             age: "20",
-            address: "上海",
+            address: "成都"
         }
     ]
 }  //默认数据
@@ -32,6 +32,11 @@ export default (state = defaultState, action) => {//就是一个方法函数
         return newState
     }
     if (action.type === GET_ALL_USER) {
+        let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state
+        newState.userList = action.userList
+        return newState
+    }
+    if (action.type === GET_USERS_BY_USERNAME) {
         let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state
         newState.userList = action.userList
         return newState

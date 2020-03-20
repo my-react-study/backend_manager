@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Row, Button } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
-import { getUserListAction, getAllUserAction } from "./store/actionCreator";
+import { getUserListAction, getAllUserAction, getUsersByUsername } from "./store/actionCreator";
 
 const { Search } = Input;
 
@@ -45,12 +45,13 @@ class TodoList extends Component {
         super(props)
         this.state = store.getState();
         this.storeChange = this.storeChange.bind(this)  //转变this指向
+        this.search = this.search.bind(this)
         store.subscribe(this.storeChange) //订阅Redux的状态
     }
 
     columns = [
         {
-            dataIndex: "username", title: "用户",
+            dataIndex: "username", title: "姓名",
         },
         {
             dataIndex: "age", title: "年龄",
@@ -80,11 +81,16 @@ class TodoList extends Component {
         this.setState(store.getState())
     }
 
+    search = (e) => {
+        const action = getUsersByUsername(e.target.value)
+        store.dispatch(action)
+    };
+
     render() {
         return (
             <div className="App">
                 <Row>
-                    <Search style={{ width: 300 }} />
+                    <Search style={{ width: 300 }} onChange={this.search} placeholder="请输入姓名" />
                     <Button type="primary" style={{ marginLeft: 20 }} >添加用户</Button>
                 </Row>
                 <Row style={{ paddingTop: 20 }}>
