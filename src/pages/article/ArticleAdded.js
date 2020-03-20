@@ -36,7 +36,7 @@ const ArticleAdded = (props) => {
                 setTitle(article.title)
                 setContent(article.article_content)
                 setPublishDate(article.addTime)
-                setArticleType(article.typeId)
+                setArticleType(article.type_id)
                 setIntroduction(article.introduce)
             }
         )

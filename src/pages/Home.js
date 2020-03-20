@@ -6,6 +6,7 @@ import BlogIndex from "./BlogIndex"
 import "./Home.css"
 import ArticleList from "./article/ArticleList"
 import ArticleAdded from "./article/ArticleAdded"
+import TodoList from "./todoList/TodoList"
 
 
 function Home() {
@@ -23,6 +24,8 @@ function Home() {
                     <li><Link to="/home/articleList">文章列表</Link> </li>
                     <li><Link to="/home/addArticle">添加文章</Link> </li>
                 </ul>
+                <h3>TodoList</h3>
+                <li><Link to="/home/todoList">redux实现TodoList</Link> </li>
             </div>
 
             <div className="rightMain">
@@ -32,6 +35,7 @@ function Home() {
                 <Route path="/home/articleList" component={ArticleList} />
                 <Route path="/home/addArticle" component={ArticleAdded} />
                 <Route path="/home/editArticle/:id" component={ArticleAdded} />
+                <Route path="/home/todoList" component={TodoList} />
             </div>
         </div>
     )
