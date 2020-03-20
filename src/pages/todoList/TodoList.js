@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Row, Button } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
-import { getUserListAction } from "./store/actionCreator";
-import axios from 'axios'
+import { getUserListAction, getAllUserAction } from "./store/actionCreator";
 
 const { Search } = Input;
 
@@ -69,11 +68,12 @@ class TodoList extends Component {
         }];
 
     componentDidMount() {
-        axios.get('http://localhost:7300/mock/5e74ab0eca458a00267bf30a/tmh/getUserList').then((res) => {
-            const userList = res.data.userList
-            const action = getUserListAction(userList)
-            store.dispatch(action)
-        });
+        // axios.get('http://localhost:7300/mock/5e74ab0eca458a00267bf30a/tmh/getUserList').then((res) => {
+        //     const userList = res.data.userList
+        //     const action = getUserListAction(userList)
+        //     store.dispatch(action)
+        const action = getAllUserAction()
+        store.dispatch(action)
     }
 
     storeChange() {
