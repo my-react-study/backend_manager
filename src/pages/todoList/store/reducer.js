@@ -1,4 +1,4 @@
-import { GET_USER_LIST } from './actionTypes'
+import { GET_USER_LIST } from './actionType'
 
 const defaultState = {
     userList: [

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Table, Input, Row, Button } from 'antd';
 import 'antd/dist/antd.css'
-import store from './store'
-import { getUserListAction } from "./store/actionCreators";
+import store from './store/storeCreator'
+import { getUserListAction } from "./store/actionCreator";
 
 
 const { Search } = Input;
