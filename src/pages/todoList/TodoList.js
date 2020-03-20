@@ -3,7 +3,7 @@ import { Table, Input, Row, Button } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
 import { getUserListAction } from "./store/actionCreator";
-
+import axios from 'axios'
 
 const { Search } = Input;
 
@@ -69,8 +69,11 @@ class TodoList extends Component {
         }];
 
     componentDidMount() {
-        const action = getUserListAction(userList)
-        store.dispatch(action)
+        axios.get('http://localhost:7300/mock/5e74ab0eca458a00267bf30a/tmh/getUserList').then((res) => {
+            const userList = res.data.userList
+            const action = getUserListAction(userList)
+            store.dispatch(action)
+        });
     }
 
     storeChange() {
