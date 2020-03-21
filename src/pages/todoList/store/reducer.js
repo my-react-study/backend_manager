@@ -1,4 +1,4 @@
-import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, ADD_USER, DELETE_USER_BY_ID } from './actionType'
+import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, DELETE_USER_BY_ID } from './actionType'
 
 const defaultState = {
     userList: [
@@ -37,11 +37,6 @@ export default (state = defaultState, action) => {//就是一个方法函数
         return newState
     }
     if (action.type === GET_USERS_BY_USERNAME) {
-        let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state
-        newState.userList = action.userList
-        return newState
-    }
-    if (action.type === ADD_USER) {
         let newState = JSON.parse(JSON.stringify(state)) //深度拷贝state
         newState.userList = action.userList
         return newState

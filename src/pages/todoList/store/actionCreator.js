@@ -1,4 +1,4 @@
-import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, ADD_USER, DELETE_USER_BY_ID } from './actionType'
+import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, DELETE_USER_BY_ID } from './actionType'
 import axios from 'axios'
 import servicePath from '../../../config/ApiUrl'
 
