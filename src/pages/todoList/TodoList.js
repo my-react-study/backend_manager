@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Row, Button, Modal, Form, message } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
-import { getAllUserAction, getUsersByUsername } from "./store/actionCreator";
+import { getAllUserAction, getUsersByUsername,addUserAction } from "./store/actionCreator";
 
 const { Search } = Input;
 const FormItem = Form.Item;
@@ -67,6 +67,24 @@ class TodoList extends Component {
         })
     }
 
+    //提交
+    handleOk = () => {
+        this.props.form.validateFieldsAndScroll((err, value) => {
+            if (err) return;
+            let user = {
+                userName: value.username, age: value.age, address: value.address
+            };
+            if (this.state.modalType === 'add') {
+                const action = addUserAction(user)
+                store.dispatch(action)
+                this.setState({visible: false});
+                message.success("添加成功!")
+            } else {
+                message.success("编辑成功!")
+            }
+        })
+    }
+
     render() {
         const { getFieldDecorator } = this.props.form;
         const formItemLayout = {
@@ -91,6 +109,7 @@ class TodoList extends Component {
                 </Row>
                 <Modal
                     title={this.state.modalType === 'add' ? "添加用户" : "编辑用户"}
+                    onOk={this.handleOk}
                     onCancel={() => this.setState({ visible: false })}
                     visible={this.state.visible}>
                     <Form>

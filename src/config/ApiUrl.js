@@ -9,6 +9,7 @@ let servicePath = {
     getArticleById: ipUrl + 'getArticleById/',  //  根据ID获得文章详情
     updateArticle: ipUrl + 'updateArticle',  //  根据ID获得文章详情
     getAllUser: ipUrl + 'getAllUser',
-    getUsersByUsername: ipUrl + 'getUsersByUsername/'
+    getUsersByUsername: ipUrl + 'getUsersByUsername/',
+    addUser: ipUrl + 'addUser/'
 }
 export default servicePath;

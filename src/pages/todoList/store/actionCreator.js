@@ -1,4 +1,4 @@
-import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME } from './actionType'
+import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, ADD_USER } from './actionType'
 import axios from 'axios'
 import servicePath from '../../../config/ApiUrl'
 
@@ -46,5 +46,21 @@ export const getUsersByUsername = (username) => {
                     dispatch(action)
                 });
         }
+    }
+}
+
+export const addUserAction = (user) => {
+    return (dispatch) => {
+        axios({
+            method: 'post',
+            url: servicePath.addUser,
+            data: user
+        }).then(
+            res => {
+                if (res.data.isSuccess) {
+                    dispatch(getAllUserAction())
+                }
+            }
+        )
     }
 }
