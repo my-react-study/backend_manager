@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Row, Button, Modal, Form, message } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
-import { getAllUserAction, getUsersByUsername,addUserAction } from "./store/actionCreator";
+import { getAllUserAction, getUsersByUsername, addUserAction, editUserAction } from "./store/actionCreator";
 
 const { Search } = Input;
 const FormItem = Form.Item;
@@ -18,6 +18,9 @@ class TodoList extends Component {
     }
 
     columns = [
+        {
+            dataIndex: "id", title: "ID",
+        },
         {
             dataIndex: "username", title: "姓名",
         },
@@ -77,9 +80,14 @@ class TodoList extends Component {
             if (this.state.modalType === 'add') {
                 const action = addUserAction(user)
                 store.dispatch(action)
-                this.setState({visible: false});
+                this.setState({ visible: false });
                 message.success("添加成功!")
             } else {
+                user.id = this.state.editRow.id
+                console.log(this.state.editRow)
+                const action = editUserAction(user)
+                store.dispatch(action)
+                this.setState({ visible: false });
                 message.success("编辑成功!")
             }
         })
