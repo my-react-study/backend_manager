@@ -11,7 +11,6 @@ export const getAllUserAction = () => {
     return (dispatch) => {
         axios.get(servicePath.getAllUser)
             .then((res) => {
-                console.log(res)
                 const userList = res.data.data.userList
                 const action = {
                     type: GET_ALL_USER,
@@ -25,15 +24,7 @@ export const getAllUserAction = () => {
 export const getUsersByUsername = (username) => {
     return (dispatch) => {
         if (username === null || username === "") {
-            axios.get(servicePath.getAllUser)
-                .then((res) => {
-                    const userList = res.data.data.userList
-                    const action = {
-                        type: GET_ALL_USER,
-                        userList
-                    }
-                    dispatch(action)
-                });
+            dispatch(getAllUserAction())
         }
         else {
             axios.get(servicePath.getUsersByUsername + username)
