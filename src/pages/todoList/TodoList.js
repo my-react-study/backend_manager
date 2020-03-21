@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Table, Input, Row, Button, Modal, Form, message } from 'antd';
 import 'antd/dist/antd.css'
 import store from './store/storeCreator'
-import { getAllUserAction, getUsersByUsername, addUserAction, editUserAction } from "./store/actionCreator";
+import { getAllUserAction, getUsersByUsername, addUserAction, editUserAction,deleteUserAction } from "./store/actionCreator";
 
 const { Search } = Input;
 const FormItem = Form.Item;
+const { confirm } = Modal;
 
 class TodoList extends Component {
 
@@ -34,7 +35,7 @@ class TodoList extends Component {
             dataIndex: "action", title: "操作", width: 200, render: (text, row) => {
                 return <div>
                     <Button onClick={() => this.modal('edit', row)}>编辑</Button>
-                    <Button style={{ marginLeft: 10 }} type="danger" >删除</Button>
+                    <Button style={{ marginLeft: 10 }} type="danger" onClick={() => this.remove(row)}>删除</Button>
                 </div>
             }
         }];
@@ -70,7 +71,7 @@ class TodoList extends Component {
         })
     }
 
-    //提交
+    //添加与修改用户提交
     handleOk = () => {
         this.props.form.validateFieldsAndScroll((err, value) => {
             if (err) return;
@@ -92,6 +93,20 @@ class TodoList extends Component {
             }
         })
     }
+
+    remove = (row) => {
+        confirm({
+            title: '是否要删除该用户?',
+            okText: '是',
+            okType: '否',
+            cancelText: 'No',
+            onOk() {
+                const action = deleteUserAction(row.id)
+                store.dispatch(action)
+                message.success('删除成功!')
+            }
+        });
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;

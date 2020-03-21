@@ -1,4 +1,4 @@
-import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, ADD_USER } from './actionType'
+import { GET_USER_LIST, GET_ALL_USER, GET_USERS_BY_USERNAME, ADD_USER, DELETE_USER_BY_ID } from './actionType'
 import axios from 'axios'
 import servicePath from '../../../config/ApiUrl'
 
@@ -67,6 +67,26 @@ export const editUserAction = (user) => {
             res => {
                 if (res.data.isSuccess) {
                     dispatch(getAllUserAction())
+                }
+            }
+        )
+    }
+}
+
+export const deleteUserAction = (id) => {
+    return (dispatch) => {
+        axios({
+            method: 'delete',
+            url: servicePath.deleteUser + id,
+        }).then(
+            res => {
+                console.log(res)
+                if (res.data.isSuccess) {
+                    const action = {
+                        type: DELETE_USER_BY_ID,
+                        id
+                    }
+                    dispatch(action)
                 }
             }
         )

@@ -11,6 +11,7 @@ let servicePath = {
     getAllUser: ipUrl + 'getAllUser',
     getUsersByUsername: ipUrl + 'getUsersByUsername/',
     addUser: ipUrl + 'addUser/',
-    editUser: ipUrl + 'editUser/'
+    editUser: ipUrl + 'editUser/',
+    deleteUser: ipUrl + 'deleteUser/'
 }
 export default servicePath;
