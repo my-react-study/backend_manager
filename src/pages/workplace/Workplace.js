@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Link } from "react-router-dom"
-import Money from "./workplace/Money"
-import Getup from "./workplace/Getup"
-import Avocation from "./workplace/Avocation"
+import Money from "./Money"
+import Getup from "./Getup"
+import Avocation from "./Avocation"
 import "./Workplace.css"
 
 function Workplace() {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import Video from "./Video"
-import Workplace from "./Workplace"
-import BlogIndex from "./BlogIndex"
+import Video from "./video/Video"
+import Workplace from "./workplace/Workplace"
+import BlogIndex from "./blogIndex/BlogIndex"
 import "./Home.css"
 import ArticleList from "./article/ArticleList"
 import ArticleAdded from "./article/ArticleAdded"
@@ -25,7 +25,9 @@ function Home() {
                     <li><Link to="/home/addArticle">添加文章</Link> </li>
                 </ul>
                 <h3>TodoList</h3>
-                <li><Link to="/home/todoList">redux实现TodoList</Link> </li>
+                <ul>
+                    <li><Link to="/home/todoList">redux demo</Link> </li>
+                </ul>
             </div>
 
             <div className="rightMain">

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
-import Vue from './video/Vue';
-import Flutter from './video/Flutter';
-import Java from './video/Java';
+import Vue from './Vue';
+import Flutter from './Flutter';
+import Java from './Java';
 import "./Video.css"
 
 function Video() {
